@@ -3,10 +3,12 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import Create from  './components/create.component';
+// import Create from  './components/create.component';
 import Edit from  './components/edit.component';
 import Index from './components/index.component';
 import Home from './components/home.component';
+import Invoicelist from './components/invoicelist.component';
+
 
 
 class App extends Component {
@@ -24,10 +26,10 @@ class App extends Component {
                   <Link to={'/'} className="nav-link">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/create'} className="nav-link">Invoice List</Link>
+                  <Link to={'/invoicelist'} className="nav-link">Invoice List</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/index'} className="nav-link">Index</Link>
+                  <Link to={'/index'} className="nav-link">Report</Link>
                 </li>
               </ul>
             </div>
@@ -36,7 +38,7 @@ class App extends Component {
           
           <h2>Pratama CashFlow Management</h2> <br/>
           <Switch>
-              <Route exact path='/create' component={ Create } />
+              <Route exact path='/invoicelist' component={ Invoicelist } />
               <Route path='/edit/:id' component={ Edit } />
               <Route path='/index' component={ Index } />
               <Route path='/' component={ Home } />
