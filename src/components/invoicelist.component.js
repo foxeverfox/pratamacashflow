@@ -1,7 +1,7 @@
 import ReactTable from "react-table";
 import React ,{Component} from 'react';
 import 'react-table/react-table.css'
-import firedb from './database';
+import firebase from './database';
 
 
 
@@ -9,21 +9,30 @@ class ListInvoice extends Component {
     constructor()
     {
         super();
+
+        this.ref =firebase.firestore().collection('invoice');
+        this.unsubscribe = null ;
+
         this.state = {
              data : []
         }
     }
 
-    componentWillMount() {
-           
-       const  db  = firedb.firestore()
+    onCollectionUpdate = (querySnapshot) => {
+      const data =[];
+      querySnapshot.forEach((doc) =>{
+        console.log(doc.data);
+        const {noinvoice ,tglinvoice,deskripsi } = doc.data();
+        data.push({key:doc.id,noinvoice,deskripsi ,tglinvoice });
 
-        const  dokref = db.collection('invoice').get()
-       .then( (snapshot) => {
-           snapshot.forEach ( (doc) => {
-               console.log(doc.noinvoice);
-           })
-       })
+      });
+      this.setState({
+       data
+      });
+    }
+
+    componentDidMount(){
+       this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 
     }
      
@@ -35,15 +44,26 @@ class ListInvoice extends Component {
 
          <div className="container">
            <button type="button" id='newbutton' className="btn btn-primary">New Invoice</button>
-
            <div> 
-               
-               
-             </div>
+         </div>
 
             
             <div  className="ReactTable -striped -highlight"  >
                 <ReactTable 
+                  getTdProps={(state, rowInfo, column, instance) => {
+                     return {
+                        onClick: (e ,handleOriginal) => {
+                         
+                          console.log("It was in this row:", rowInfo.original.noinvoice);
+
+                        }
+
+
+                     } }
+
+
+
+                  }
                   data = {data}
                   columns={[
                     {          
@@ -57,6 +77,19 @@ class ListInvoice extends Component {
                           Header: "Deskripsi",
                           id: "deskripsi",
                           accessor:"deskripsi"
+                        },
+                        {
+                          Header:"Command",
+                          id:"cmd",
+                          Cell: row => (
+                             <div>
+
+                            <button type="button" id='newbutton' className="btn btn-primary">Lihat</button>
+
+                             </div>
+                          )
+                           
+
                         }
                       ]
                     }
