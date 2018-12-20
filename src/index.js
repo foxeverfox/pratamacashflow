@@ -6,6 +6,16 @@ import * as serviceWorker from './serviceWorker';
 import {BrowserRouter} from 'react-router-dom';
 
 
+import WebFont from 'webfontloader';
+
+WebFont.load({
+  google: {
+    families: ['Open Sans', 'sans-serif']
+    
+
+  }
+});
+
 ReactDOM.render(
 <BrowserRouter><App /></BrowserRouter> ,
 document.getElementById('root'));

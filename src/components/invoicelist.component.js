@@ -43,7 +43,7 @@ class ListInvoice extends Component {
         return (
 
          <div className="container">
-           <button type="button" id='newbutton' className="btn btn-primary">New Invoice</button>
+           <button type="button" Linkto = {'/create'}  id='newbutton' className="btn btn-primary">New Invoice</button>
            <div> 
          </div>
 
