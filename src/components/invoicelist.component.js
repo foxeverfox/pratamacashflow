@@ -1,8 +1,9 @@
-import ReactTable from "react-table";
+import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+import BootstrapTable from 'react-bootstrap-table-next';
 import React ,{Component} from 'react';
-import 'react-table/react-table.css'
 import firebase from './database';
-
+import '../css/style.css'
+import paginationFactory from 'react-bootstrap-table2-paginator'
 
 
 class ListInvoice extends Component {
@@ -40,68 +41,45 @@ class ListInvoice extends Component {
 
         const {data} = this.state ;
         console.log({data});
+        const rowStyle = { backgroundColor: '#ffffff'  , foreGroundCOlor: '#000000'};
+
+        const columns = [{
+          dataField: 'noinvoice',
+          text: 'no Invoice'
+        }, {
+          dataField: 'deskripsi',
+          text: 'Deskripsi'
+        }];
+
+        const selectRow = {
+          mode: 'radio',
+          clickToSelect: true,
+          bgColor: '#00BFFF'
+          };
+       
+
         return (
 
-         <div className="container">
-           <button type="button" Linkto = {'/create'}  id='newbutton' className="btn btn-primary">New Invoice</button>
-           <div> 
+         <div className="ibox">
+           
+           <a href="\create" class="btn btn-primary btn-lg " tabindex="-1" role="button" >New Invoice</a>
+
+         <div> 
+         
+          <BootstrapTable keyField='noinvoice' 
+            data={ data } 
+            columns={ columns } 
+            rowStyle = {rowStyle} 
+            selectRow={selectRow} 
+            pagination={ paginationFactory()   }         
+            />
+
          </div>
 
             
-            <div  className="ReactTable -striped -highlight"  >
-                <ReactTable 
-                  getTdProps={(state, rowInfo, column, instance) => {
-                     return {
-                        onClick: (e ,handleOriginal) => {
-                         
-                          console.log("It was in this row:", rowInfo.original.noinvoice);
 
-                        }
-
-
-                     } }
-
-
-
-                  }
-                  data = {data}
-                  columns={[
-                    {          
-                      columns: [
-                        {
-                          Header: "No Invoice",
-                          id:"noinvoice",
-                          accessor: "noinvoice"
-                        },
-                        {
-                          Header: "Deskripsi",
-                          id: "deskripsi",
-                          accessor:"deskripsi"
-                        },
-                        {
-                          Header:"Command",
-                          id:"cmd",
-                          Cell: row => (
-                             <div>
-
-                            <button type="button" id='newbutton' className="btn btn-primary">Lihat</button>
-
-                             </div>
-                          )
-                           
-
-                        }
-                      ]
-                    }
-                  ]}
-                  defaultPageSize={10}
-                  className="-striped -highlight"
-                />
-
-
-
-            </div>
-        
+            
+            
          </div>
         )
     }

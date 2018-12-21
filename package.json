@@ -6,9 +6,12 @@
     "bootstrap": "^4.1.3",
     "firebase": "^5.7.0",
     "react": "^16.6.3",
+    "react-bootstrap-table-next": "^1.4.2",
+    "react-bootstrap-table2-paginator": "^1.0.4",
     "react-dom": "^16.6.3",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.1",
+    "react-slick": "^0.23.2",
     "react-table": "^6.8.6",
     "webfontloader": "^1.6.28"
   },
