@@ -6,6 +6,14 @@ import '../css/style.css'
 import paginationFactory from 'react-bootstrap-table2-paginator'
 
 
+function priceFormatter(x,_row){
+
+  const y= x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return 'Rp. '+ y 
+
+
+}
+
 class ListInvoice extends Component {
     constructor()
     {
@@ -23,8 +31,8 @@ class ListInvoice extends Component {
       const data =[];
       querySnapshot.forEach((doc) =>{
         console.log(doc.data);
-        const {noinvoice ,tglinvoice,deskripsi } = doc.data();
-        data.push({key:doc.id,noinvoice,deskripsi ,tglinvoice });
+        const {noinvoice ,tglinvoice,deskripsi ,estimasi } = doc.data();
+        data.push({key:doc.id,noinvoice,deskripsi ,tglinvoice ,estimasi});
 
       });
       this.setState({
@@ -36,7 +44,7 @@ class ListInvoice extends Component {
        this.unsubscribe = this.ref.onSnapshot(this.onCollectionUpdate);
 
     }
-     
+
     render(){
 
         const {data} = this.state ;
@@ -45,11 +53,22 @@ class ListInvoice extends Component {
 
         const columns = [{
           dataField: 'noinvoice',
-          text: 'no Invoice'
+          text: 'No Bill of Lading'
         }, {
           dataField: 'deskripsi',
-          text: 'Deskripsi'
-        }];
+          text: 'Description'
+        }, {
+          dataField:'tglinvoice',
+          text:'Trx Date'
+        },
+       {
+        dataField:'estimasi',
+        text:'Estimation Exp',
+        formatter:priceFormatter ,
+        align:'right'
+      }
+      
+      ];
 
         const selectRow = {
           mode: 'radio',
@@ -60,9 +79,19 @@ class ListInvoice extends Component {
 
         return (
 
+
+
          <div className="ibox">
            
-           <a href="\create" class="btn btn-primary btn-lg " tabindex="-1" role="button" >New Invoice</a>
+
+           <div className="ibox-title">
+                  
+                    <h3>Expense Estimation List </h3>
+          </div>
+
+          
+
+           <a href="\create" class="btn btn-primary btn-lg " tabindex="-1" role="button" >New Estimation</a>
 
          <div> 
          

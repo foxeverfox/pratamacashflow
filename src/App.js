@@ -4,17 +4,20 @@ import './App.css';
 
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
-import Edit from  './components/edit.component';
+
 import Index from './components/index.component';
 import Home from './components/home.component';
 import Invoicelist from './components/invoicelist.component';
 import CreateInvoice from './components/createinvoice.component';
-
+import fundRequestList from './components/fundrequestlist.component.js';
+import CreateFundRequest from './components/createfundrequest.component.js';
+import approveRequest from  './components/approverequest.com.js';
 
 class App extends Component {
   render() {
     return (
        <Router>
+        
         <div className="container">
         
         
@@ -26,8 +29,12 @@ class App extends Component {
                   <Link to={'/'} className="nav-link">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link to={'/invoicelist'} className="nav-link">Invoice List</Link>
+                  <Link to={'/invoicelist'} className="nav-link">Estimation List</Link>
                 </li>
+                <li className="nav-item">
+                  <Link to={'/fundrequestlist'} className="nav-link">Fund Request List</Link>
+                </li>
+
                 <li className="nav-item">
                   <Link to={'/index'} className="nav-link">Report</Link>
                 </li>
@@ -37,13 +44,15 @@ class App extends Component {
           
           
           <Switch>
+
               <Route exact path='/invoicelist' component={ Invoicelist } />
-              <Route path='/edit/:id' component={ Edit } />
               <Route path='/index' component={ Index } />
               <Route path='/create' component={ CreateInvoice } />
+              <Route path='/fundrequestlist' component={ fundRequestList } />
+              <Route path='/fundrequestcreate' component={ CreateFundRequest } />
+              <Route path='/approverequest/:id' component={ approveRequest } />
+              
               <Route path='/' component={ Home } />
-
-
           </Switch>
       
         </div>
