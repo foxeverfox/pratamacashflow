@@ -7,7 +7,7 @@
     "firebase": "^5.7.1",
     "moment": "^2.23.0",
     "react": "^16.7.0",
-    "react-bootstrap-table-next": "^1.4.2",
+    "react-bootstrap-table-next": "^1.4.4",
     "react-bootstrap-table2-paginator": "^1.0.4",
     "react-bootstrap4-modal": "^1.7.0",
     "react-dom": "^16.7.0",

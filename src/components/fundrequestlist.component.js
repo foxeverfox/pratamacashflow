@@ -31,16 +31,14 @@ function statusFormatter(x, _row) {
                    }}  >Approve Request</Button> )
         };
     if (_row.status_dokumen == '2') {
-            return ( < a href = "\create"
-            className = "btn btn-primary btn-lg "
-                tabIndex = "-1"
-                role = "button" > Pay to APL < /a> )
+            return  ( <Button className='btn btn-primary btn-sm' onClick={ () =>{
+                this.setState({modal2:! this.state.modal2 })
+                       }}  >Pay to APL</Button> )
       }
      if (_row.status_dokumen == '3') {
-                return ( < a href = "\create"
-                className = "btn btn-primary btn-lg "
-                    tabIndex = "-1"
-                    role = "button" > Payment Confirmation < /a> )
+        return  ( <Button className='btn btn-primary btn-sm' onClick={ () =>{
+            this.setState({modal3:! this.state.modal3 })
+                   }}  >Payment Confirmation</Button> )
        }
 
             }
@@ -56,6 +54,8 @@ function statusFormatter(x, _row) {
                     this.state = {
                         data: [] ,
                         modal:false ,
+                        modal2:false ,
+                        modal3:false ,
                         ar_requestNote:'',
                         ar_nominal:'',
                         ar_tglrequest:'',
@@ -63,13 +63,13 @@ function statusFormatter(x, _row) {
                     }
                 
                 this.toggle= this.toggle.bind(this);          
+                this.toggle2= this.toggle2.bind(this);          
                 this.statusFormatter = statusFormatter.bind(this)
                 
                 this.doProses = this.doProses.bind(this);
                 this.doApprove=this.doApprove.bind(this) ;
                 this.doPay =this.doPay.bind(this);
-                this.doPayConfirm = this.doPayConfirm.bind(this)
-;
+                this.doPayConfirm = this.doPayConfirm.bind(this);
                 
                 }
 
@@ -108,6 +108,19 @@ function statusFormatter(x, _row) {
                   this.setState({modal:! this.state.modal })
                  
                  }   
+
+                toggle2(){
+                    /// this.setState({modal:! this.state.modal })   
+                  this.setState({modal2:! this.state.modal2 })
+                 
+                 }   
+                toggle3(){
+                    /// this.setState({modal:! this.state.modal })   
+                  this.setState({modal3:! this.state.modal3 })
+                 
+                 }    
+
+
                 doApprove(){
                     const id = this.state.ar_id
 
@@ -140,13 +153,10 @@ function statusFormatter(x, _row) {
 
                     if (statusdokumen== '1') {
                         this.doApprove()
-                    }
-                    if (statusdokumen== '2') {
+                    } else if (statusdokumen== '2') {
                         this.doPay()
-                    }
-                   
-                    if (statusdokumen== '3') {
-             this.doPayConfirm()
+                    } else if (statusdokumen== '3') {
+                        this.doPayConfirm()
                       }
                     this.setState({modal:false })
 
@@ -286,7 +296,7 @@ function statusFormatter(x, _row) {
 
                         </div>
 
-                          <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                                 <ModalHeader toggle={this.toggle} className="modal-header">
                                         <h4 className="modal-title">Approval Fund Request</h4>
                                 </ModalHeader>
@@ -332,6 +342,104 @@ function statusFormatter(x, _row) {
                                 <ModalFooter>
                                     <Button color="primary" onClick={this.doProses}>Approve</Button>{' '}
                                     <Button color="secondary" data-dismiss="modal" onClick={this.toggle}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                            
+                        <Modal isOpen={this.state.modal2} toggle={this.toggle2} className={this.props.className}>
+                                <ModalHeader toggle={this.toggle2} className="modal-header">
+                                        <h4 className="modal-title">Pay to APL</h4>
+                                </ModalHeader>
+                                <ModalBody>
+
+                                    <div className="ibox">
+                                
+                                         <div className="row">
+                                    
+                                            <div className="col-lg-6">
+                                                 <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                      <dt>Tanggal</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                      {this.state.ar_tglrequest }
+                                                    </div>  
+                                                </dl>  
+
+                                                <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                    <dt>NO B/L</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                    {this.state.ar_noinvoice }
+                                                    </div>  
+                                                </dl>  
+
+                                                <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                    <dt>Nominal</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                    { priceFormatter(this.state.ar_nominal) }
+                                                    </div>  
+                                                </dl>   
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                 </ModalBody>
+
+                                <ModalFooter>
+                                    <Button color="primary" onClick={this.doProses}>Approve</Button>{' '}
+                                    <Button color="secondary" data-dismiss="modal" onClick={this.toggle2}>Cancel</Button>
+                                </ModalFooter>
+                            </Modal>
+                        
+                        <Modal isOpen={this.state.modal3} toggle={this.toggle3} className={this.props.className}>
+                                <ModalHeader toggle={this.toggle3} className="modal-header">
+                                        <h4 className="modal-title">Payment Receive Confirmation</h4>
+                                </ModalHeader>
+                                <ModalBody>
+
+                                    <div className="ibox">
+                                
+                                         <div className="row">
+                                    
+                                            <div className="col-lg-6">
+                                                 <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                      <dt>Tanggal</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                      {this.state.ar_tglrequest }
+                                                    </div>  
+                                                </dl>  
+
+                                                <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                    <dt>NO B/L</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                    {this.state.ar_noinvoice }
+                                                    </div>  
+                                                </dl>  
+
+                                                <dl className="row mb-0">
+                                                    <div className="col-sm-4 text-sm-right">
+                                                    <dt>Nominal</dt> 
+                                                    </div>
+                                                    <div className ='col-sm-8 text-sm-left'>
+                                                    { priceFormatter(this.state.ar_nominal) }
+                                                    </div>  
+                                                </dl>   
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                 </ModalBody>
+
+                                <ModalFooter>
+                                    <Button color="primary" onClick={this.doProses}>Approve</Button>{' '}
+                                    <Button color="secondary" data-dismiss="modal" onClick={this.toggle3}>Cancel</Button>
                                 </ModalFooter>
                             </Modal>
 
